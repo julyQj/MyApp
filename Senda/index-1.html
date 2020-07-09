@@ -1,0 +1,149 @@
+﻿<!doctype html>
+<html ng-app="myApp">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>菜单</title>
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap-3.3.7-dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="../css/font-awesome-4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="../css/app.css" />
+    <script type="text/javascript" src="../script/api.js"></script>
+    <script type="text/javascript" src="../script/jQuery.js"></script>
+    <script type="text/javascript" src="../script/layer-v3.1.0/layer/layer.js"></script>
+    <script type="text/javascript" src="../script/DbHelper.js"></script>
+    <style>
+        .col-h {
+            text-align: center;
+            padding: 10px 0px;
+        }
+
+        .row-ico {
+            text-align: center;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+            .row-ico i {
+                font-size: 40px;
+                display: inline-block;
+                padding: 10px;
+                border-radius: 5px;
+                height: 52px;
+                background: linear-gradient(#ffffff, #1f94ff);
+                -webkit-background-clip: text;
+                color: transparent;
+            }
+
+        .row-text {
+            font-weight: 700;
+            font-size: 12px;
+            padding: 0 6px 10px 6px;
+            color: #5c5c5c;
+        }
+
+        .border-line {
+            border-left: 1px solid #e5e5e5;
+            border-right: 1px solid #e5e5e5;
+        }
+
+        .types {
+            text-align: center;
+            font-weight: bold;
+            font-size: 14px;
+            border-bottom: 1px dashed #5c5c5c;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <div class="top">
+            菜单
+        </div>
+        <div class="center" style="bottom:0;padding:0;">
+            <div class="types" t="系统功能"><br style="clear:both;" />系统功能</div>
+            <div class="col-xs-4 col-h" onclick="goLogin()">
+                <div>
+                    <div class="row-ico"><i class="fa fa-th-large"></i></div>
+                    <div class="row-text">重新登录</div>
+                </div>
+            </div>
+            <div class="col-xs-4 col-h" onclick="getVerson()">
+                <div>
+                    <div class="row-ico"><i class="fa fa-th-large"></i></div>
+                    <div class="row-text">软件版本</div>
+                </div>
+            </div>
+            <div class="col-xs-4 col-h" onclick="update_APP(true)">
+                <div>
+                    <div class="row-ico"><i class="fa fa-th-large"></i></div>
+                    <div class="row-text">软件更新</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>
+<script type="text/javascript">
+
+    apiready = function () {
+        $(function () {
+            //setTimeout(update_APP, 1500, false);//true 强制更新
+        })
+    };
+
+    //跳转
+    var goPage = function (row) {
+        api.openWin({
+            name: 'form',
+            url: row + '.html',
+            reload: true
+        });
+    }
+
+    //扫描后结果返回
+    function SaoMaoFun(smtype, dat1, dat) { }
+
+    //重新登录
+    var goLogin = function () {
+        api.closeWin();
+    }
+
+    $(function () {
+        var realMenuLists = [
+            {
+                type: '原材料',
+                title: '原材料盘点',
+                url: 'yuancail/pandian',
+                icon: 'fa fa-th-large'
+            },
+        ];
+        //模板
+        var htmls = ''
+            + '<div class="col-xs-4 col-h" onclick="goPage(\'{{url}}\');">'
+            + '    <div>'
+              + '      <div class="row-ico"><i class="{{icon}}"></i></div>'
+                + '    <div class="row-text">{{title}}</div>'
+                + '</div>'
+            + '</div>';
+
+
+        //循环菜单
+        for (var x in realMenuLists) {
+            var temp = realMenuLists[x],
+                type = temp.type || '其他';
+            if (!$('[t= "' + type + '"]').length) {
+                $('[ t="系统功能"]').before('<div class="types" t="' + type + '"><br style="clear:both;" />' + type + '<br style="clear:both;" /></div>');
+            }
+
+            $('[t= "' + type + '"]').after(
+                htmls.replace(/{{icon}}/g, (temp.icon || 'fa fa-th-large'))
+                    .replace(/{{title}}/g, temp.title)
+                    .replace(/{{url}}/g, temp.url)
+                );
+        }
+    });
+</script>

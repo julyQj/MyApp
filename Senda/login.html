@@ -1,0 +1,229 @@
+﻿<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>登陆</title>
+    <link rel="stylesheet" type="text/css" href="./css/bootstrap-3.3.7-dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="./css/font-awesome-4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="./css/app.css" />
+    <script type="text/javascript" src="./script/api.js"></script>
+    <script type="text/javascript" src="./script/jQuery.js"></script>
+    <script type="text/javascript" src="./script/layer-v3.1.0/layer/layer.js"></script>
+    <script type="text/javascript" src="./script/DbHelper.js"></script>
+</head>
+
+<body>
+    <div class="box">
+        <div class="center" style="top:0;">
+            <div class="form-content">
+
+                <div style="margin-top: 100px;text-align: center;margin-bottom: 20px;">
+                    <i style="font-size: 19px;font-weight: 700;vertical-align: middle;">送达达</i>
+                </div>
+
+                <div align="center">  <img src="./image/login.jpg" width="200" height="200"  /> </div>
+
+                <div class="row-info">
+                    <div class="info-left pull-left">
+                        <i class="fa fa-user ico-font"></i>账号
+                    </div>
+                    <div class="info-right pull-right">
+                        <input class="info-input scanner" type="text" placeholder="请输入账号" id="name" value="jwmxw">
+                    </div>
+                </div>
+                <div class="row-info">
+                    <div class="info-left pull-left">
+                        <i class="fa fa-lock ico-font"></i>密码
+                    </div>
+                    <div class="info-right pull-right">
+                        <input class="info-input" type="password" placeholder="请输入密码" id="password" value="mxw123456">
+                    </div>
+                </div>
+                <div class="row-info">
+                    <div class="info-left pull-left">
+                        <i class="fa fa-dot-circle-o ico-font"></i>IP
+                    </div>
+                    <div class="info-right pull-right">
+                        <select id="ipconfig"></select>
+                    </div>
+                </div>
+                <!-- <div class="row-info" style="border-top:1px dashed #808080;">
+                    <div class="info-left pull-left">
+                        <i class="fa ico-font"></i>设备名称
+                    </div>
+                    <div class="info-right pull-right" id="devname"></div>
+                </div> -->
+                <div class="row-info">
+                    <div class="info-left pull-left">
+                        <i class="fa ico-font"></i>上一次登录
+                    </div>
+                    <div class="info-right pull-right" id="logintime">2020-07-08 10:02:33</div>
+                </div>
+                <!-- <div class="row-info" style="border-bottom: none;">
+                    <button class="btn btn-sm btn-toolbar pull-right" onclick="setting()">
+                        <i class="fa fa-cog"></i>
+                    </button>
+                </div> -->
+            </div>
+        </div>
+        <div class="bottom">
+            <div class="bottom-row col-xs-12">
+                <button type="button" class="btn btn-info btn-block" onclick="goPage()">登录</button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+
+<script type="text/javascript">
+
+
+    function goPage() {
+        //获取选中的连接地址
+        var ipselectval = $("#ipconfig").val();
+        var ipselectval ="192.168.1.161:10915:apiLogin:/res/apk/index.html";
+        // console.log('ipconfig：' + ipselectval+";");
+        // if (ipselectval == null || ipselectval == '') {
+        //     layer.msg('请选择连接地址！');
+        //     return;
+        // }
+        var iparrs = ipselectval.split(':');
+        // if (iparrs.length != 4) {
+        //     layer.msg('您选择的地址不正确！<hr>正确的，比如：192.168.8.1:17101:apiLogin:/res/apk/index.html');
+        //     return;
+        // }
+        //IP+端口
+        // localStorage.setItem("IPValue", ipselectval);
+        // localStorage.setItem("IP", iparrs[0] + ":" + iparrs[1]);
+        //console.log('IP：' + iparrs[0] + ":" + iparrs[1]);
+        //console.log('区域编号：' + $("#quyu").val());
+        //设备名称
+        // localStorage.setItem("_devname", $("#devname").html());
+        //console.log('设备名称：' + $("#devname").html());
+        var userName = $("#name").val(), password = $("#password").val();
+        //console.log('提交接口：' + iparrs[2]);
+
+        localStorage.setItem('userName', userName);
+        localStorage.setItem('password', password);
+                       //localStorage.setItem('登录返回数据', JSON.stringify(dat));
+                       api.openWin({
+                                   name: 'index',
+                                   url: "index.html",
+                                   reload: true
+                               });
+        db.submitData(iparrs[2],
+            {
+                UserName: userName/*登录名(VarChar)*/,
+                Password: password/*登录密码(VarChar)*/,
+                FMachine: 'NOTPDA',//设备类型（pda mes）
+            }, function (dat, dat1) {
+                try {
+                    if (dat.ds[0].status == '000000') {
+                        layer.msg('登录成功!');
+                        var jdata = db.nowDate();
+                        alert(jdata)
+                        //更新登录时间
+                        localStorage.setItem('logintime', jdata.year + "-" + jdata.month + "-" + jdata.day);
+                        localStorage.setItem('userName', userName);
+                        localStorage.setItem('password', password);
+                        //localStorage.setItem('登录返回数据', JSON.stringify(dat));
+                        //传递给远程页面
+                        api.setPrefs({ key: '登录返回数据', value: JSON.stringify(dat) });
+                        api.setPrefs({ key: 'LoginUserName', value: userName });
+                        api.setPrefs({ key: 'LoginIPPort', value: iparrs[0] + ":" + iparrs[1] });
+
+                        api.openWin({
+                                    name: 'index',
+                                    url: "index.html",
+                                    reload: true
+                                });
+                        //console.log('打开页面：' + "http://" + $("#ipconfig").val() + iparrs[3] + '?v=' + new Date().getTime());
+                        // if (iparrs[3].indexOf('http://') == -1 && iparrs[3].indexOf('https://') == -1) {
+                        //     api.openWin({
+                        //         name: 'main',
+                        //         //url: "http://" + $("#ipconfig").val() + '/res/apk/index.html?v=' + new Date().getTime(),
+                        //         url: "http://" + iparrs[0] + ":" + iparrs[1] + iparrs[3] + '?v=' + new Date().getTime(),
+                        //         reload: true
+                        //     });
+                        // } else {
+                        //     api.openWin({
+                        //         name: 'main',
+                        //         //url: "http://" + $("#ipconfig").val() + '/res/apk/index.html?v=' + new Date().getTime(),
+                        //         url: iparrs[3] + '?v=' + new Date().getTime(),
+                        //         reload: true
+                        //     });
+                        // }
+                    } else {
+                        alert(dat.ds[0].msg);
+                    }
+                } catch (e) {
+                }
+            });
+    }
+
+    //------------------------------------------------设置-----------S---------------------
+    // var setting;
+    // apiready = function () {
+    //     setting = function () {
+    //
+    //         api.openFrame({
+    //             name: 'config',
+    //             url: 'config.html?v=' + new Date().getTime(),
+    //             reload: true
+    //         });
+    //     }
+    //     //渲染区域和ip下拉
+    //     function loadSelect() {
+    //         var logConfig = localStorage.getItem('logConfig');
+    //         if (logConfig) {
+    //             var html = '',
+    //                 config = JSON.parse(logConfig),
+    //                 quyus = config.quyus,
+    //                 ips = config.ips,
+    //                 devname = config.devname;
+
+    //             //设置设备名称
+    //             $("#devname").html(devname);
+    //             //设备名称
+    //             localStorage.setItem("_devname", $("#devname").html());
+    //             for (var i = 0; i < quyus.length; i++) {
+    //                 var temp = quyus[i];
+    //                 if (localStorage.getItem('_QUYU') != null && localStorage.getItem('_QUYU') == temp.id)
+    //                     html += '<option selected=selected value="' + temp.id + '">' + temp.text + '</option>';
+    //                 else
+    //                     html += '<option value="' + temp.id + '">' + temp.text + '</option>';
+    //             }
+    //             //区域
+    //             $('#quyu').html(html);
+    //             html = '';
+    //             //连接
+    //             for (var i = 0; i < ips.length; i++) {
+    //                 var temp = ips[i];
+    //                 if (localStorage.getItem('IP') != null && localStorage.getItem('IP') == (temp.ip))
+    //                     html += '<option selected=selected value="' + temp.ip + ':' + temp.port + '">' + temp.ip + '</option>';
+    //                 else
+    //                     html += '<option value="' + temp.ip + ':' + temp.port + '">' + temp.ip + '</option>';
+    //             }
+    //             $('#ipconfig').html(html);
+    //         } else {
+    //             setting();
+    //             layer.msg('请设置基本信息', { time: 1000 });
+    //         }
+    //     }
+    //     //------------------------------------------------设置-----------E---------------------
+    //
+    //     $(function () {
+    //         if (localStorage.getItem('userName') != null) $("#name").val(localStorage.getItem('userName'));
+    //         if (localStorage.getItem('password') != null) $("#password").val(localStorage.getItem('password'));
+    //         //更新登录时间
+    //         if (localStorage.getItem('logintime') != null) $("#logintime").html(localStorage.getItem('logintime'));
+    //         //渲染区域和ip下拉
+    //         loadSelect();
+    //     })
+    // };
+</script>

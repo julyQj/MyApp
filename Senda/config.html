@@ -1,0 +1,191 @@
+﻿<!doctype html>
+<html ng-app="myApp">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>设置</title>
+    <link rel="stylesheet" type="text/css" href="./css/bootstrap-3.3.7-dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="./css/font-awesome-4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="./css/app.css" />
+    <script type="text/javascript" src="./script/api.js"></script>
+    <script type="text/javascript" src="./script/jQuery.js"></script>
+    <script type="text/javascript" src="./script/layer-v3.1.0/layer/layer.js"></script>
+    <script type="text/javascript" src="./script/DbHelper.js"></script>
+    <style>
+        #settingInfo .container {
+            padding-right: 20px;
+            padding-left: 20px;
+        }
+
+        .title {
+            padding-left: 5px;
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        .add {
+            margin-right: 15px;
+            margin-top: 5px;
+            float: right;
+        }
+
+        .my-table {
+            height: 130px;
+            overflow: scroll;
+        }
+
+            .my-table::-webkit-scrollbar {
+                width: 0px !important;
+                height: 0px !important;
+            }
+
+            .my-table thead tr th {
+                border-color: inherit !important;
+            }
+
+            .my-table tbody tr,
+            .my-table tbody tr td {
+                height: 31px;
+            }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <div class="top">
+            <div class="top-back-button" onclick="api.closeFrame();"><i class="fa fa-chevron-left"></i></div>
+            设置
+        </div>
+        <div class="center">
+
+            <div class="container">
+                <div class="row">
+                    <label>设备名称：</label><input id="devnameSet" value="PDA001" style="border-bottom:1px solid #808080;" />
+                </div>
+                <div class="row">
+                    <h5 class="text-muted title">区域：</h5>
+                    <button class="btn btn-xs btn-toolbar btn-success add" onclick="addTr(this,1,'公司总部')">
+                        <i class="fa fa-plus"></i>
+                    </button>
+                    <div class="my-table quyuList">
+                        <table class="table table-bordered table-condensed">
+                            <colgroup>
+                                <col width="50%">
+                                <col>
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th>区域ID</th>
+                                    <th>区域名称</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <h5 class="text-muted title">连接地址：</h5>
+                    <button class="btn btn-xs btn-toolbar btn-success add"
+                            onclick="addTr(this, 'erp.jiwanginfo.com:17101', 'apiLogin:/res/apk/index.html')">
+                        <i class="fa fa-plus"></i>
+                    </button>
+                    <div class="my-table ipList">
+                        <table class="table table-bordered table-condensed">
+                            <colgroup>
+                                <col width="50%">
+                                <col>
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th>IP:端口</th>
+                                    <th>Y9接口:跳转url</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bottom">
+            <div class="bottom-row col-xs-12">
+                <button type="button" class="btn btn-info btn-block" onclick="saveConfig();">保存</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<script type="text/javascript">
+    $(function () {
+        apiready = function () {
+            db.fixStatusBar("#header");
+            var logConfig = localStorage.getItem('logConfig');
+            if (logConfig) {
+                var html = '',
+                    config = JSON.parse(logConfig),
+                    quyus = config.quyus,
+                    ips = config.ips,
+                    devname = config.devname;
+                //设置设备名称
+                $("#devname").html(devname);
+                //设备名称
+                localStorage.setItem("_devname", $("#devname").html());
+                //获取区域
+                if (!quyus.length) { quyus[quyus.length] = { id: '1', text: '公司总部' } }
+                for (var i = 0; i < quyus.length; i++) {
+                    var temp = quyus[i];
+                    html += '<tr><td><input value="' + temp.id + '"/></td><td><input  value="' + temp.text + '"/></td><td><input type="button" onclick="$(this).parents(\'tr\').remove();" value="删除" /></td></tr>';
+                }
+                $('.quyuList table tbody').html(html);
+                html = '';
+                //获取连接地址
+                for (var i = 0; i < ips.length; i++) {
+                    var temp = ips[i];
+                    html += '<tr><td><input value="' + temp.ip + '"/></td><td><input  value="' + temp.port + '"/></td><td><input type="button" onclick="$(this).parents(\'tr\').remove();" value="删除" /></td></tr>';
+                }
+                $('.ipList table tbody').html(html);
+            }
+        };
+    })
+
+    //添加行
+    function addTr(dom, t1, t2) {
+        var $this = $(dom);
+        $this.next().find('table tbody').append('<tr><td><input value="' + t1 + '"/></td><td><input  value="' + t2 + '"/></td><td><input type="button" onclick="$(this).parents(\'tr\').remove();" value="删除" /></td></tr>');
+
+    }
+    //保存配置
+    function saveConfig() {
+        var quyus = [],
+            ips = [];
+        //区域
+        $('.quyuList table tbody tr').each(function () {
+            quyus[quyus.length] = { id: $(this).find('td:eq(0) input').val(), text: $(this).find('td:eq(1) input').val() };
+        });
+        //IP
+        $('.ipList table tbody tr').each(function () {
+            ips[ips.length] = { ip: $(this).find('td:eq(0) input').val(), port: $(this).find('td:eq(1) input').val() };
+        });
+        localStorage.setItem('logConfig', JSON.stringify({
+            //设备名称
+            devname: $("#devnameSet").val(),
+            //区域列表
+            quyus: quyus,
+            //ip列表
+            ips: ips
+        }));
+
+        layer.msg('保存成功', { time: 1000 }, function () {
+            api.openFrame({
+                name: 'login_page',
+                url: 'login_page.html?v=' + new Date().getTime(),
+                reload: true
+            });
+        });
+    }
+    
+</script>

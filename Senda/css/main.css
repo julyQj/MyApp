@@ -1,0 +1,203 @@
+html,body{
+	margin:0;
+	padding:0;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
+*{
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+body{
+	padding-top: 25px;
+	font-family: 'microsoft yahei';
+	/*background: url(../img/background.png) no-repeat #ffffff;*/
+	box-sizing: border-box;
+}
+select{
+	padding:0;
+	margin: 0;
+	border:0;
+}
+input{
+	padding:0;
+	margin: 0;
+	border:0;
+}
+
+
+/*页面风格*/
+.bgImg{
+	width: 100%;
+	bottom: 0;
+	overflow: scroll;
+	background-size: 100% 100%;
+	position: fixed;
+	top: 65px;
+	z-index: 1;
+}
+
+
+
+.bgColor{
+	background: #337ab7;
+}
+.borderColor{
+	/*border: 1px solid #337ab7;*/
+	/*background: #FFFFFF;*/
+}
+.table th,td{
+	border:1px solid #337ab7;
+	padding:8px 10px;
+	font-size: 14px;
+	text-align: center;
+}
+.table td div{
+	height: 34px;
+}
+.table td div input{
+	height:100%;
+	width:100%;
+	background: none;
+	text-align: center;
+}
+.table td div select{
+	height:100%;
+	width:100%;
+	background: none;
+}
+/*end页面风格*/
+.head{
+	height: 40px;
+	text-align: center;
+	line-height: 40px;
+	font-weight: 700;
+	color: #FFFFFF;
+	position: fixed;
+	width: 100%;
+	z-index: 2;
+}
+.back{
+	float: left;
+	width: 60px;
+	text-align: left;
+	margin-left: 3px;
+}
+.back img{
+	width: 20px;
+	vertical-align: sub;
+}
+.back_{
+	float: left;
+	width: 60px;
+	text-align: left;
+	margin-left: 3px;
+}
+.back_ img{
+	width: 20px;
+	vertical-align: sub;
+}
+.scan{
+	float: right;
+	height: 40px;
+	width: 36px;
+	text-align: right;
+	margin-right: 6px;
+}
+.scan img{
+	width: 36px;
+	margin-top: 13px;
+}
+.content{
+	padding:10px;
+}
+.content .dataInput{
+	padding: 4px 0;
+	border-bottom: 1px solid #bdbdbd;
+	height: 40px;
+}
+.content .dataInput .dataName{
+	float: left;
+	width: 30%;
+	height: 100%;
+	line-height: 31px;
+	font-weight: 700;
+	font-size: 14px;
+	position: relative;
+	border-right: 1px solid #bdbdbd;
+}
+.content .dataInput .dataItem{
+	float: right;
+	width: 70%;
+	height: 100%;
+	line-height: 23px;
+	font-size: 14px;
+	position: relative;
+}
+.content .dataInput .dataItem input{
+	border: 0;
+	padding: 0;
+	margin: 0;
+	outline: none;
+	width: 100%;
+	height: 100%;
+	background: transparent;
+	padding-left: 10px;
+}
+.content .dataInput .dataItem select{
+	border: 0;
+	padding: 0;
+	margin: 0;
+	outline: none;
+	width: 100%;
+	height: 100%;
+	background: transparent;
+	padding-left: 10px;
+}
+.button{
+	height: 35px;
+	text-align: center;
+	margin-bottom: 30px;
+}
+.button input{
+	width: 90px;
+	height: 100%;
+	margin: 0 20px;
+	display: inline-block;
+	color: #FFFFFF;
+	padding: 0;
+	border-radius: 20px;
+	font-weight: 700;
+}
+.tableStyle{
+	width: 100%;
+	overflow-x: scroll;
+	margin-bottom: 20px;
+}
+.tableStyle table{
+	border-collapse: collapse;
+}
+
+.mnSelect{
+	padding: 10px;
+	border-bottom: 1px solid #f7f7f7;
+}
+.nmSelected{
+	background: #4b90f1;
+	color: #FFFFFF;
+}
+.mnSelect:active{
+	background: #4b90f1;
+	color: #FFFFFF;
+}
+
+.bg1{
+	background: #15cf2c;
+	color: #fff;
+}
+.bg2{
+	background: #f6b14a;
+	color: #fff;
+}
