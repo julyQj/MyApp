@@ -7,11 +7,108 @@
     <title>端API</title>
     <link rel="stylesheet" type="text/css" href="../css/api.css"/>
     <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <script type="text/javascript" src="./script/jQuery.js"></script>
     <style>
         .empty{ text-align: center; padding: 120px 0; }
+
+        table {
+            text-align: center;
+            vertical-align: middle;
+            border-collapse: collapse;
+            position: relative;
+            width: 100%;
+        }
+
+        table thead {
+            height: 35px;
+            background-color: #E6F9F5;
+        }
+
+        table td {
+            border: 0;
+            padding: 15px;
+            position: relative;
+        }
+
+        table td::after {
+            content: "";
+            display: block;
+            position: absolute;
+            left: 0%;
+            top: 0%;
+            width: 200%;
+            height: 200%;
+            border: 1px solid #8be7e4;
+            border-top: none;
+            border-right: none;
+            transform-origin: 0 0;
+            transform: scale(0.5);
+        }
+
+        table::after {
+            content: "";
+            display: block;
+            position: absolute;
+            left: 0%;
+            top: 0%;
+            width: 200%;
+            height: 200%;
+            border: 1px solid #8be7e4;
+            border-left: none;
+            border-bottom: none;
+            transform-origin: 0 0;
+            transform: scale(0.5);
+        }
     </style>
 </head>
 <body>
-    <div class="empty">端API</div>
+    <table id ="sendListTab">
+      <tr>
+        <th>出库单位</th>
+        <th>出库仓库</th>
+        <th>入库单位</th>
+        <th>入库仓库</th>
+        <th>总托数</th>
+      </tr>
+      <tr v-for="item in data">
+        <td>{item[outCell]}</td>
+        <td>{item[outCompany]}</td>
+        <td>{item[inCell]}</td>
+        <td>{item[inCompany]}</td>
+        <td>{item[num]}</td>
+      </tr>
+
+    </table>
 </body>
+
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+    apiready = function(){
+        setDataList();
+    };
+      $(function () {
+        setDataList();
+      }
+
+    function setDataList(){
+        var data=[
+          { outCell:#1, outCompany:w1,inCell:#1, inCompany:w1,num:11},
+          { outCell:#1, outCompany:w1,inCell:#1, inCompany:w1,num:12},
+          { outCell:#1, outCompany:w1,inCell:#1, inCompany:w1,num:13},
+        ]
+
+        var tr = $("#sendListTab tr");
+        var len = tr.length;
+        for (var i = 0; i < len; i++) {
+          if(i>data.length) {break;}
+          var td = $(tr[i]).find("td");
+          $(td[0]).html(data[i][outCell]);
+          $(td[1]).html(data[i][outCompany]);
+          $(td[2]).html(data[i][inCell]);
+          $(td[3]).html(data[i][inCompany]);
+          $(td[4]).html(data[i][num]);
+        }
+    }
+
+</script>
 </html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title>注册</title>
+      <link rel="stylesheet" type="text/css" href="./css/bootstrap-3.3.7-dist/css/bootstrap.min.css" />
+      <link rel="stylesheet" type="text/css" href="./css/font-awesome-4.7.0/css/font-awesome.min.css" />
+      <link rel="stylesheet" type="text/css" href="./css/app.css" />
+      <script type="text/javascript" src="./script/api.js"></script>
+      <script type="text/javascript" src="./script/jQuery.js"></script>
+      <script type="text/javascript" src="./script/layer-v3.1.0/layer/layer.js"></script>
+      <script type="text/javascript" src="./script/DbHelper.js"></script>
+
+  </head>
+  <body>
+    <div class="box">
+        <div class="center" style="top:0;">
+            <div class="form-content">
+
+                <div style="margin-top: 100px;text-align: center;margin-bottom: 20px;">
+                    <i style="font-size: 19px;font-weight: 700;vertical-align: middle;">送达达</i>
+                </div>
+
+                <div align="center">  <img src="./image/login.jpg" width="200" height="200"  /> </div>
+
+                <div class="row-info">
+                    <div class="info-left pull-left">
+                        <i class="fa fa-user ico-font"></i>账号
+                    </div>
+                    <div class="info-right pull-right">
+                        <input class="info-input scanner" type="text" placeholder="请输入账号" id="name"">
+                    </div>
+                </div>
+                <div class="row-info">
+                    <div class="info-left pull-left">
+                        <i class="fa fa-lock ico-font"></i>密码
+                    </div>
+                    <div class="info-right pull-right">
+                        <input class="info-input" type="password" placeholder="请输入密码" id="password" >
+                    </div>
+                </div>
+                <div class="row-info">
+                    <div class="info-left pull-left">
+                        <i class="fa fa-dot-circle-o ico-font"></i>IP
+                    </div>
+                    <div class="info-right pull-right">
+                        <select id="ipconfig"></select>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="bottom">
+            <div class="bottom-row col-xs-12">
+                <button type="button" class="btn btn-info btn-block" onclick="doSignIn()">注册</button>
+            </div>
+        </div>
+    </div>
+  </body>
+  <script type="text/javascript" src="../script/api.js"></script>
+  <script type="text/javascript">
+      apiready = function(){
+
+      };
+      function doSignIn(){
+
+        api.openWin({
+                    name: 'login',
+                    url: "login.html",
+                    reload: true
+                });
+      }
+  </script>
+  </html>

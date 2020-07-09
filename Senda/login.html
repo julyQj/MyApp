@@ -32,7 +32,7 @@
                         <i class="fa fa-user ico-font"></i>账号
                     </div>
                     <div class="info-right pull-right">
-                        <input class="info-input scanner" type="text" placeholder="请输入账号" id="name" value="jwmxw">
+                        <input class="info-input scanner" type="text" placeholder="请输入账号" id="name">
                     </div>
                 </div>
                 <div class="row-info">
@@ -40,7 +40,7 @@
                         <i class="fa fa-lock ico-font"></i>密码
                     </div>
                     <div class="info-right pull-right">
-                        <input class="info-input" type="password" placeholder="请输入密码" id="password" value="mxw123456">
+                        <input class="info-input" type="password" placeholder="请输入密码" id="password">
                     </div>
                 </div>
                 <div class="row-info">
@@ -51,23 +51,11 @@
                         <select id="ipconfig"></select>
                     </div>
                 </div>
-                <!-- <div class="row-info" style="border-top:1px dashed #808080;">
-                    <div class="info-left pull-left">
-                        <i class="fa ico-font"></i>设备名称
-                    </div>
-                    <div class="info-right pull-right" id="devname"></div>
-                </div> -->
-                <div class="row-info">
-                    <div class="info-left pull-left">
-                        <i class="fa ico-font"></i>上一次登录
-                    </div>
-                    <div class="info-right pull-right" id="logintime">2020-07-08 10:02:33</div>
+                <div class="row-info" style="border-bottom: none;">
+                    <lable style='float:right;width:150px;' tapmode = "hover" onclick="goSignIn();" >
+                        没有登录的账号？注册
+                    </lable>
                 </div>
-                <!-- <div class="row-info" style="border-bottom: none;">
-                    <button class="btn btn-sm btn-toolbar pull-right" onclick="setting()">
-                        <i class="fa fa-cog"></i>
-                    </button>
-                </div> -->
             </div>
         </div>
         <div class="bottom">
@@ -82,7 +70,7 @@
 
 <script type="text/javascript">
 
-
+//------------------------------------------------登录-----------S---------------------
     function goPage() {
         //获取选中的连接地址
         var ipselectval = $("#ipconfig").val();
@@ -166,64 +154,13 @@
             });
     }
 
-    //------------------------------------------------设置-----------S---------------------
-    // var setting;
-    // apiready = function () {
-    //     setting = function () {
-    //
-    //         api.openFrame({
-    //             name: 'config',
-    //             url: 'config.html?v=' + new Date().getTime(),
-    //             reload: true
-    //         });
-    //     }
-    //     //渲染区域和ip下拉
-    //     function loadSelect() {
-    //         var logConfig = localStorage.getItem('logConfig');
-    //         if (logConfig) {
-    //             var html = '',
-    //                 config = JSON.parse(logConfig),
-    //                 quyus = config.quyus,
-    //                 ips = config.ips,
-    //                 devname = config.devname;
+  //------------------------------------------------注册-----------S---------------------
+    function goSignIn() {
 
-    //             //设置设备名称
-    //             $("#devname").html(devname);
-    //             //设备名称
-    //             localStorage.setItem("_devname", $("#devname").html());
-    //             for (var i = 0; i < quyus.length; i++) {
-    //                 var temp = quyus[i];
-    //                 if (localStorage.getItem('_QUYU') != null && localStorage.getItem('_QUYU') == temp.id)
-    //                     html += '<option selected=selected value="' + temp.id + '">' + temp.text + '</option>';
-    //                 else
-    //                     html += '<option value="' + temp.id + '">' + temp.text + '</option>';
-    //             }
-    //             //区域
-    //             $('#quyu').html(html);
-    //             html = '';
-    //             //连接
-    //             for (var i = 0; i < ips.length; i++) {
-    //                 var temp = ips[i];
-    //                 if (localStorage.getItem('IP') != null && localStorage.getItem('IP') == (temp.ip))
-    //                     html += '<option selected=selected value="' + temp.ip + ':' + temp.port + '">' + temp.ip + '</option>';
-    //                 else
-    //                     html += '<option value="' + temp.ip + ':' + temp.port + '">' + temp.ip + '</option>';
-    //             }
-    //             $('#ipconfig').html(html);
-    //         } else {
-    //             setting();
-    //             layer.msg('请设置基本信息', { time: 1000 });
-    //         }
-    //     }
-    //     //------------------------------------------------设置-----------E---------------------
-    //
-    //     $(function () {
-    //         if (localStorage.getItem('userName') != null) $("#name").val(localStorage.getItem('userName'));
-    //         if (localStorage.getItem('password') != null) $("#password").val(localStorage.getItem('password'));
-    //         //更新登录时间
-    //         if (localStorage.getItem('logintime') != null) $("#logintime").html(localStorage.getItem('logintime'));
-    //         //渲染区域和ip下拉
-    //         loadSelect();
-    //     })
-    // };
+      api.openWin({
+                  name: 'signIn',
+                  url: "signIn.html",
+                  reload: true
+              });
+    }
 </script>
