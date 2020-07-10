@@ -7,108 +7,69 @@
     <title>端API</title>
     <link rel="stylesheet" type="text/css" href="../css/api.css"/>
     <link rel="stylesheet" type="text/css" href="../css/style.css"/>
-    <script type="text/javascript" src="./script/jQuery.js"></script>
+    <script type="text/javascript" src="../script/jQuery.js"></script>
     <style>
         .empty{ text-align: center; padding: 120px 0; }
-
-        table {
-            text-align: center;
-            vertical-align: middle;
-            border-collapse: collapse;
-            position: relative;
-            width: 100%;
-        }
-
-        table thead {
-            height: 35px;
-            background-color: #E6F9F5;
-        }
-
-        table td {
-            border: 0;
-            padding: 15px;
-            position: relative;
-        }
-
-        table td::after {
-            content: "";
-            display: block;
-            position: absolute;
-            left: 0%;
-            top: 0%;
-            width: 200%;
-            height: 200%;
-            border: 1px solid #8be7e4;
-            border-top: none;
-            border-right: none;
-            transform-origin: 0 0;
-            transform: scale(0.5);
-        }
-
-        table::after {
-            content: "";
-            display: block;
-            position: absolute;
-            left: 0%;
-            top: 0%;
-            width: 200%;
-            height: 200%;
-            border: 1px solid #8be7e4;
-            border-left: none;
-            border-bottom: none;
-            transform-origin: 0 0;
-            transform: scale(0.5);
-        }
+        .odd{height: 0px;}
     </style>
 </head>
 <body>
     <table id ="sendListTab">
-      <tr>
+    <thead>
+      <tr style="height:40px">
+        <th>出库单位</th>
+        <th>出库仓库</th>
+        <th>入库单位</th>
+        <th>入库仓库</th>
+        <th>总托数</th>
         <th>出库单位</th>
         <th>出库仓库</th>
         <th>入库单位</th>
         <th>入库仓库</th>
         <th>总托数</th>
       </tr>
-      <tr v-for="item in data">
-        <td>{item[outCell]}</td>
-        <td>{item[outCompany]}</td>
-        <td>{item[inCell]}</td>
-        <td>{item[inCompany]}</td>
-        <td>{item[num]}</td>
+    </thead>
+    <tbody>
+      <tr class="template" id="templateRow">
+        <td name = "outCell"></td>
+        <td name = "outCompany"></td>
+        <td name = "inCell"></td>
+        <td name = "inCompany"></td>
+        <td name = "num"></td>
+        <td name = "outCell-1"></td>
+        <td name = "outCompany-1"></td>
+        <td name = "inCell-1"></td>
+        <td name = "inCompany-1"></td>
+        <td name = "num-1"></td>
       </tr>
-
+    </tbody>
     </table>
 </body>
 
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
-    apiready = function(){
-        setDataList();
-    };
-      $(function () {
-        setDataList();
-      }
+    $(function () {
+      apiready = function () {
 
-    function setDataList(){
-        var data=[
-          { outCell:#1, outCompany:w1,inCell:#1, inCompany:w1,num:11},
-          { outCell:#1, outCompany:w1,inCell:#1, inCompany:w1,num:12},
-          { outCell:#1, outCompany:w1,inCell:#1, inCompany:w1,num:13},
-        ]
+            var dataJson=[
+              { "outCell":"#1", "outCompany":"w1","inCell":"#1", "inCompany":"w1","num":"11","outCell-1":"#1", "outCompany-1":"w1","inCell-1":"#1", "inCompany-1":"w1-1","num-1":"11"},
+              { "outCell":"#1", "outCompany":"w1","inCell":"#1", "inCompany":"w1","num":"12","outCell-1":"#1", "outCompany-1":"w1","inCell-1":"#1", "inCompany-1":"w1-1","num-1":"11"},
+              { "outCell":"#1", "outCompany":"w1","inCell":"#1", "inCompany":"w1","num":"13","outCell-1":"#1", "outCompany-1":"w1","inCell-1":"#1", "inCompany-1":"w1-1","num-1":"11"},
+            ]
 
-        var tr = $("#sendListTab tr");
-        var len = tr.length;
-        for (var i = 0; i < len; i++) {
-          if(i>data.length) {break;}
-          var td = $(tr[i]).find("td");
-          $(td[0]).html(data[i][outCell]);
-          $(td[1]).html(data[i][outCompany]);
-          $(td[2]).html(data[i][inCell]);
-          $(td[3]).html(data[i][inCompany]);
-          $(td[4]).html(data[i][num]);
-        }
-    }
+            $.each(dataJson, function(index, item) {
+             var $newRow = $("#templateRow").clone().removeAttr("id").removeClass(
+               "template").appendTo($("#sendListTab tbody"));
+            //  if (index % 2 == 1) {
+            //   $newRow.addClass("odd");
+            //  }
+             $.each(item, function(key, value) {
+               $newRow.children("td[name=" + key + "]").text(value).attr(
+                 "title", value);
+             });
+            });
+      };
+    });
 
 </script>
 </html>

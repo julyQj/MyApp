@@ -12,3 +12,54 @@ html,body {  font-size:14px; height:100%;  }
 .border-b:after{ top:auto; bottom:0;  }
 
 #wrap{ height: 100%; }
+
+/*table*/
+        table {
+            text-align: center;
+            vertical-align: middle;
+            border-collapse: collapse;
+            position: relative;
+            width: 200%;
+            overflow:scroll;
+        }
+
+        table thead {
+            height: 45px;
+            background-color: #E6F9F5;
+        }
+
+        table td {
+            border: 0;
+            padding: 15px;
+            position: relative;
+        }
+
+        table td::after {
+            content: "";
+            display: block;
+            position: absolute;
+            left: 0%;
+            top: 0%;
+            width: 200%;
+            height: 200%;
+            border: 1px solid #8be7e4;
+            border-top: none;
+            border-right: none;
+            transform-origin: 0 0;
+            transform: scale(0.5);
+        }
+
+        table::after {
+            content: "";
+            display: block;
+            position: absolute;
+            left: 0%;
+            top: 0%;
+            width: 200%;
+            height: 200%;
+            border: 1px solid #8be7e4;
+            border-left: none;
+            border-bottom: none;
+            transform-origin: 0 0;
+            transform: scale(0.5);
+        }

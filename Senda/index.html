@@ -32,10 +32,10 @@
 <div id="wrap" class="flex-wrap flex-vertical">
     <header>
         <ul>
-            <li class="border-b active" >首页 <label style='float:right;width:100px;' tapmode = "hover" onclick="scan( this );">扫一扫</label> </li>
-            <li class="border-b" >用户 <label style='float:right;width:100px;' tapmode = "hover" onclick="scan( this );">扫一扫</label> </li>
-            <li class="border-b" >我的 <label style='float:right;width:100px;' tapmode = "hover" onclick="scan( this );">扫一扫</label> </li>
-            <li class="border-b" >设置 <label style='float:right;width:100px;' tapmode = "hover" onclick="scan( this );">扫一扫</label> </li>
+            <li class="border-b active" >  首页 <label style='float:right;width:100px;' tapmode = "hover" onclick="scan( this );">扫一扫</label> </li>
+            <li class="border-b" >  用户 <label style='float:right;width:100px;' tapmode = "hover" onclick="scan( this );">扫一扫</label> </li>
+            <li class="border-b" >  我的 <label style='float:right;width:100px;' tapmode = "hover" onclick="scan( this );">扫一扫</label> </li>
+            <li class="border-b" >  设置 <label style='float:right;width:100px;' tapmode = "hover" onclick="scan( this );">扫一扫</label> </li>
         </ul>
     </header>
     <div id="main" class="flex-con">
@@ -55,6 +55,7 @@
 <script type="text/javascript" src="script/api.js"></script>
 <script type="text/javascript">
     apiready = function () {
+
         $api.fixStatusBar( $api.dom('header') );
         api.setStatusBarStyle({
             style: 'dark',
