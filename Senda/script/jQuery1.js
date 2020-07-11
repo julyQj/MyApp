@@ -8514,7 +8514,9 @@ jQuery.ajaxTransport(function( options ) {
 				// Callback
 				callback = function( type ) {
 					return function() {
+						alert("111"+type);
 						if ( callback ) {
+							alert("222");
 							delete xhrCallbacks[ id ];
 							callback = xhr.onload = xhr.onerror = null;
 

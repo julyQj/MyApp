@@ -19,13 +19,12 @@ html,body {  font-size:14px; height:100%;  }
             vertical-align: middle;
             border-collapse: collapse;
             position: relative;
-            width: 200%;
-            overflow:scroll;
+            width: 300%;
         }
 
         table thead {
             height: 45px;
-            background-color: #E6F9F5;
+            background-color:#9fc5e8;
         }
 
         table td {
@@ -42,7 +41,7 @@ html,body {  font-size:14px; height:100%;  }
             top: 0%;
             width: 200%;
             height: 200%;
-            border: 1px solid #8be7e4;
+            border: 1px solid #dad9d5;
             border-top: none;
             border-right: none;
             transform-origin: 0 0;

@@ -7,58 +7,64 @@
     <title>端API</title>
     <link rel="stylesheet" type="text/css" href="../css/api.css"/>
     <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css"/>
     <script type="text/javascript" src="../script/jQuery.js"></script>
     <style>
-        header{ background-color: #f2f2f2; }
-        header ul li { height: 50px; line-height: 50px; text-align: center; display: none; color: #323237; position: relative;font-size: 18px;  }
-        header ul li.active{ display: block; }
         .flex-con{
           overflow: auto
         }
 
-        .sel_wrap{height:40px;background:#fff url(img/icons.png) no-repeat right -24px;
-            color: #a1a1a1; font-size: 16px;
-            border:1px solid #E4E4E4;cursor:pointer;position:relative;_filter:alpha(opacity=0);
-
-            }
-        .sel_wrap label{padding-left:10px;font-size:16px;z-index:2; color: #a1a1a1; line-height: 40px; height: 40px; display: block;}
-        .sel_wrap .select{width:100%; height:40px; line-height:40px; z-index:4;position:absolute;top:0;left:0;margin:0;padding:0;opacity:0; *margin-top:12px; filter:alpha(opacity=0);cursor:pointer; font-size: 16px;}
     </style>
 </head>
 <body>
   <div>
-    <label style="height:20px; background-color: #f2f2f2;"></label>
+    <div style="height:20px"></div>
     <div>
-      <header>
-          <ul>
-              <li class="border-b active" >送货单 <label style='float:right;width:100px;' tapmode = "hover" onclick="scan( this );">扫一扫</label> </li>
-          </ul>
+      <header class="aui-bar aui-bar-nav">
+                  <div class="aui-pull-left aui-btn"  onclick="scan( this );">
+                      <span class="aui-iconfont aui-icon-left"></span>返回
+                  </div>
+                  <div class="aui-title">送货单</div>
+                  <div class="aui-pull-right aui-btn">
+                      <label onclick="scan( this );">扫一扫</label>
+                  </div>
       </header>
-      <div  class="sel_wrap">
-          <lable>状态</lable>
-            <select id="status">
-                  <option value="0">待确认</option>
-                  <option value="1">待出厂</option>
-            </select>
-      </div>
-    </div>
+
+      <ul class="aui-list aui-form-list">
+                  <li class="aui-list-item">
+                      <div class="aui-list-item-inner">
+                          <div class="aui-list-item-label">
+                              送货状态：
+                          </div>
+                          <div class="aui-list-item-input">
+                              <select id = "status">
+                                  <option>待确认</option>
+                                  <option>待出厂</option>
+                                  <option>待收货</option>
+                                  <option>已完成</option>
+                              </select>
+                          </div>
+                      </div>
+                  </li>
+              </ul>
+          </div>
 
   </div>
   <div id="wrap" class="flex-wrap flex-vertical">
       <div id="main" class="flex-con">
           <table id ="sendListTab">
             <thead>
-              <tr style="height:40px">
-                <th>出库单位</th>
-                <th>出库仓库</th>
-                <th>入库单位</th>
-                <th>入库仓库</th>
-                <th>总托数</th>
-                <th>出库单位</th>
-                <th>出库仓库</th>
-                <th>入库单位</th>
-                <th>入库仓库</th>
-                <th>总托数</th>
+              <tr>
+                <td style="width:11%">出库单位</td>
+                <td style="width:9%">出库仓</td>
+                <td style="width:11%">入库单位</td>
+                <td style="width:9%">入库仓</td>
+                <td style="width:11%">总托数</td>
+                <td style="width:11%">出库单位</td>
+                <td style="width:9%">出库仓</td>
+                <td style="width:11%">入库单位</td>
+                <td style="width:9%">入库仓</td>
+                <td style="width:11%">总托数</td>
               </tr>
             </thead>
             <tbody>
@@ -107,7 +113,7 @@
              });
             });
 
-
+        getStatus();
 
 
 
@@ -116,18 +122,26 @@
     function getStatus(){
       var optionstring = "";
       $("#status").empty();
-
         $.ajax({
-         url:'<%=root%>/senda/getStatus',
+         url:'https://www.baidu.com/',
          type:'post',
          success:function(data){
            $.each(data,function(key,value){  //循环遍历后台传过来的json数据
              optionstring += "<option value=\"" + value.code + "\" >" + value.name + "</option>";
            });
            $("#status").html("<option value=''>请选状态</option> "+optionstring); //获得要赋值的select的id，进行赋值
+         },
+         error:function(data){
+             alert("获取状态信息错误")
          }
         });
-  }
+
+    }
+
+
+    function scan(){
+      api.closeWin();
+    }
 
 </script>
 </html>

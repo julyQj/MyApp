@@ -14,60 +14,13 @@
     </style>
 </head>
 <body>
-    <table id ="sendListTab">
-    <thead>
-      <tr style="height:40px">
-        <th>出库单位</th>
-        <th>出库仓库</th>
-        <th>入库单位</th>
-        <th>入库仓库</th>
-        <th>总托数</th>
-        <th>出库单位</th>
-        <th>出库仓库</th>
-        <th>入库单位</th>
-        <th>入库仓库</th>
-        <th>总托数</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr class="template" id="templateRow">
-        <td name = "outCell"></td>
-        <td name = "outCompany"></td>
-        <td name = "inCell"></td>
-        <td name = "inCompany"></td>
-        <td name = "num"></td>
-        <td name = "outCell-1"></td>
-        <td name = "outCompany-1"></td>
-        <td name = "inCell-1"></td>
-        <td name = "inCompany-1"></td>
-        <td name = "num-1"></td>
-      </tr>
-    </tbody>
-    </table>
+
 </body>
 
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
     $(function () {
       apiready = function () {
-
-            var dataJson=[
-              { "outCell":"#1", "outCompany":"w1","inCell":"#1", "inCompany":"w1","num":"11","outCell-1":"#1", "outCompany-1":"w1","inCell-1":"#1", "inCompany-1":"w1-1","num-1":"11"},
-              { "outCell":"#1", "outCompany":"w1","inCell":"#1", "inCompany":"w1","num":"12","outCell-1":"#1", "outCompany-1":"w1","inCell-1":"#1", "inCompany-1":"w1-1","num-1":"11"},
-              { "outCell":"#1", "outCompany":"w1","inCell":"#1", "inCompany":"w1","num":"13","outCell-1":"#1", "outCompany-1":"w1","inCell-1":"#1", "inCompany-1":"w1-1","num-1":"11"},
-            ]
-
-            $.each(dataJson, function(index, item) {
-             var $newRow = $("#templateRow").clone().removeAttr("id").removeClass(
-               "template").appendTo($("#sendListTab tbody"));
-            //  if (index % 2 == 1) {
-            //   $newRow.addClass("odd");
-            //  }
-             $.each(item, function(key, value) {
-               $newRow.children("td[name=" + key + "]").text(value).attr(
-                 "title", value);
-             });
-            });
       };
     });
 

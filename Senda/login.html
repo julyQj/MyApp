@@ -21,8 +21,8 @@
         <div class="center" style="top:0;">
             <div class="form-content">
 
-                <div style="margin-top: 100px;text-align: center;margin-bottom: 20px;">
-                    <i style="font-size: 19px;font-weight: 700;vertical-align: middle;">送达达</i>
+                <div style="margin-top: 10px;text-align: center;margin-bottom: 20px;">
+                    <i style="font-size: 20px;font-weight: 700;vertical-align: middle;">送达达</i>
                 </div>
 
                 <div align="center">  <img src="./image/login.jpg" width="200" height="200"  /> </div>
@@ -74,27 +74,28 @@
     function goPage() {
         //获取选中的连接地址
         var ipselectval = $("#ipconfig").val();
-        var ipselectval ="192.168.1.161:10915:apiLogin:/res/apk/index.html";
-        // console.log('ipconfig：' + ipselectval+";");
-        // if (ipselectval == null || ipselectval == '') {
-        //     layer.msg('请选择连接地址！');
-        //     return;
-        // }
+        var ipselectval ="https://www.baidu.com/";
         var iparrs = ipselectval.split(':');
-        // if (iparrs.length != 4) {
-        //     layer.msg('您选择的地址不正确！<hr>正确的，比如：192.168.8.1:17101:apiLogin:/res/apk/index.html');
-        //     return;
-        // }
-        //IP+端口
-        // localStorage.setItem("IPValue", ipselectval);
-        // localStorage.setItem("IP", iparrs[0] + ":" + iparrs[1]);
-        //console.log('IP：' + iparrs[0] + ":" + iparrs[1]);
-        //console.log('区域编号：' + $("#quyu").val());
-        //设备名称
-        // localStorage.setItem("_devname", $("#devname").html());
-        //console.log('设备名称：' + $("#devname").html());
+
         var userName = $("#name").val(), password = $("#password").val();
         //console.log('提交接口：' + iparrs[2]);
+        $.ajax({
+         url:'https://cli.im/Apis/QrCode/saveStatic',
+         type:'post',
+         data: {
+            userName: userName,
+           password: password
+        },
+         success:function(data){
+           $.each(data,function(key,value){  //循环遍历后台传过来的json数据
+             optionstring += "<option value=\"" + value.code + "\" >" + value.name + "</option>";
+           });
+           $("#status").html("<option value=''>请选状态</option> "+optionstring); //获得要赋值的select的id，进行赋值
+         },
+         error:function(data){
+             alert("登录信息验证失败！"+data)
+         }
+        });
 
         localStorage.setItem('userName', userName);
         localStorage.setItem('password', password);
@@ -104,6 +105,7 @@
                                    url: "index.html",
                                    reload: true
                                });
+
         db.submitData(iparrs[2],
             {
                 UserName: userName/*登录名(VarChar)*/,
@@ -119,7 +121,6 @@
                         localStorage.setItem('logintime', jdata.year + "-" + jdata.month + "-" + jdata.day);
                         localStorage.setItem('userName', userName);
                         localStorage.setItem('password', password);
-                        //localStorage.setItem('登录返回数据', JSON.stringify(dat));
                         //传递给远程页面
                         api.setPrefs({ key: '登录返回数据', value: JSON.stringify(dat) });
                         api.setPrefs({ key: 'LoginUserName', value: userName });
@@ -130,22 +131,6 @@
                                     url: "index.html",
                                     reload: true
                                 });
-                        //console.log('打开页面：' + "http://" + $("#ipconfig").val() + iparrs[3] + '?v=' + new Date().getTime());
-                        // if (iparrs[3].indexOf('http://') == -1 && iparrs[3].indexOf('https://') == -1) {
-                        //     api.openWin({
-                        //         name: 'main',
-                        //         //url: "http://" + $("#ipconfig").val() + '/res/apk/index.html?v=' + new Date().getTime(),
-                        //         url: "http://" + iparrs[0] + ":" + iparrs[1] + iparrs[3] + '?v=' + new Date().getTime(),
-                        //         reload: true
-                        //     });
-                        // } else {
-                        //     api.openWin({
-                        //         name: 'main',
-                        //         //url: "http://" + $("#ipconfig").val() + '/res/apk/index.html?v=' + new Date().getTime(),
-                        //         url: iparrs[3] + '?v=' + new Date().getTime(),
-                        //         reload: true
-                        //     });
-                        // }
                     } else {
                         alert(dat.ds[0].msg);
                     }
