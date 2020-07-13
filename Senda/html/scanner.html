@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>开发</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vant@2.9/lib/index.css"/>
+
+    <style>
+        .empty{ text-align: center; padding: 120px 0; }
+    </style>
+</head>
+<body>
+    <div style="with:100%">
+      <van-button type="info" onclick="opensanner()">开始扫码</van-button>
+    </div>
+</body>
+</html>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vant@2.9/lib/vant.min.js"></script>
+<script type="text/javascript">
+
+// 注册使用vue和vant
+  var Vue = window.Vue;
+  var vant = window.vant;
+// 使用全局的vant组件
+  Vue.use(vant);
+  apiready = function(){
+
+    var app = new Vue({
+            el:'#app',
+            data(){
+              return{
+                massageCode,
+              }
+            }
+
+    })
+  }
+
+</script>

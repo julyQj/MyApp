@@ -8,7 +8,10 @@
     <link rel="stylesheet" type="text/css" href="../css/api.css"/>
     <link rel="stylesheet" type="text/css" href="../css/style.css"/>
     <link rel="stylesheet" type="text/css" href="../css/aui.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vant@2.9/lib/index.css"/>
     <script type="text/javascript" src="../script/jQuery.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vant@2.9/lib/vant.min.js"></script>
     <style>
         .flex-con{
           overflow: auto
@@ -112,11 +115,7 @@
                  "title", value);
              });
             });
-
         getStatus();
-
-
-
       };
     });
     function getStatus(){
@@ -124,6 +123,10 @@
       $("#status").empty();
         $.ajax({
          url:'https://www.baidu.com/',
+         data: {
+          username: $("#username").val(),
+          password: $("#password").val()
+        },
          type:'post',
          success:function(data){
            $.each(data,function(key,value){  //循环遍历后台传过来的json数据
@@ -140,7 +143,25 @@
 
 
     function scan(){
-      api.closeWin();
+      alert("scnner")
+      var FNScanner = api.require("FNScanner");
+        FNScanner.openScanner({
+            autorotation: true
+        }, function(ret, err){
+          if(ret){
+            if( ret.enventType == "success"){
+              var content = ret.content;
+              alert( content);
+                alert( JSON.stringify( ret ) );
+            }else{
+                alert( "调用扫码功能失败！" );
+            }
+          }
+
+        });
+
+
+      // api.closeWin();
     }
 
 </script>
